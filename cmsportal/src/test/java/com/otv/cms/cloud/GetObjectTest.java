@@ -5,11 +5,15 @@ import static org.fest.assertions.api.Assertions.assertThat;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.otv.cms.utils.PropertyFileUtils;
 
 public class GetObjectTest {
+
+  /* Ignoring the test case and running this as and when needed. */
+  @Ignore
   @Test
   public void testGetObjectFromS3() throws IOException {
     Properties properties = PropertyFileUtils

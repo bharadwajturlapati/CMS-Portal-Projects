@@ -8,6 +8,7 @@ import java.util.Properties;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.otv.cms.exception.CMSException;
 import com.otv.cms.utils.PropertyFileUtils;
 
 public class GetObjectTest {
@@ -15,7 +16,7 @@ public class GetObjectTest {
   /* Ignoring the test case and running this as and when needed. */
   @Ignore
   @Test
-  public void testGetObjectFromS3() throws IOException {
+  public void testGetObjectFromS3() throws IOException, CMSException {
     Properties properties = PropertyFileUtils
         .getPropertiesFromFile("donotcommit/awscreds.properties");
     String responseFromS3 = GetObject.readFromS3(properties.getProperty("accesskey"),

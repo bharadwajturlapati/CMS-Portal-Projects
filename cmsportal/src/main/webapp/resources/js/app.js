@@ -1,10 +1,12 @@
+disableBrowserBack();
+addEventHandlers();
 function login(){
-	var loginRequestUrl = "http://localhost:8080/cmsportal/login";
+	var loginRequestUrl = "/cmsportal/login";
 	var userName = $('#userid').val();
 	var secret = $('#password').val();
 	var formData = new FormData();
 	formData.set("logincreds",encryptAndReturn(userName+":"+secret));
-	fetch(loginRequestUrl).then(loginRequestCb).catch(loginErrorCb)
+	fetch(loginRequestUrl,{method: "POST", body: formData}).then(loginRequestCb).catch(loginErrorCb)
 }
 
 function encryptAndReturn(userIDSecret){
@@ -24,4 +26,13 @@ function loginRequestCb(response){
 
 function loginErrorCb(){
 	console.log('Fetch Error::', err);
+}
+
+function addEventHandlers(){
+	$("#login").click(function() {
+		login();
+	});
+}
+function disableBrowserBack(){
+	 window.history.forward();
 }

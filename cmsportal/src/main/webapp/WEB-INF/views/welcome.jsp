@@ -25,7 +25,7 @@
 		<div class="userinputsection">
 			<input id="userid" type="text" placeholder="User ID" autocomplete="off">
 			<input id="password" type="password" placeholder="Password" autocomplete="off">
-			<input type="submit" name="signin" value="Login to Portal">
+			<input id="login" type="button" name="signin" value="Login to Portal">
 		</div>
 	</div>
 </body>

@@ -18,7 +18,7 @@
 <script src="<c:url value="/resources/js/app.js"/>"></script>
 
 </head>
-<body>
+<body onload="init()">
 	<!-- login div -->
 	<div class="loginsection">
 		<div class="welcomesection"></div>

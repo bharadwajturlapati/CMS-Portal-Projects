@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.otv.cms.web.Helper.LoginHandler;
 import com.otv.cms.web.pojo.LoginDetails;
 import com.otv.cms.web.pojo.Response.AbstractResponseEntity;
 import com.otv.cms.web.pojo.Response.SuccessResponseEntity;
@@ -19,6 +20,9 @@ public class LoginController {
       @RequestBody LoginDetails loginDetails) {
     // the new success response entity must be returned from the method that is
     // calling this.
-    return new ResponseEntity<AbstractResponseEntity>(new SuccessResponseEntity(), HttpStatus.OK);
+    SuccessResponseEntity successResponseEntity = LoginHandler
+        .handleLogin(loginDetails.getLoginCreds());
+
+    return new ResponseEntity<AbstractResponseEntity>(successResponseEntity, HttpStatus.OK);
   }
 }

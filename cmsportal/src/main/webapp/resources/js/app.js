@@ -1,16 +1,26 @@
-disableBrowserBack();
-addEventHandlers();
 function login(){
 	var loginRequestUrl = "/cmsportal/login";
 	var userName = $('#userid').val();
 	var secret = $('#password').val();
-	var formData = new FormData();
-	formData.set("logincreds",encryptAndReturn(userName+":"+secret));
-	fetch(loginRequestUrl,{method: "POST", body: formData}).then(loginRequestCb).catch(loginErrorCb)
+	
+	if(userName.length == 0){
+		username = "null";
+	}
+	if(secret.length == 0){
+		secret = "null";
+	}
+	
+	var requestBody = {"loginCreds":encryptAndReturn(userName+":"+secret)};
+	
+	fetch(loginRequestUrl,
+			{method: "POST",
+			body: JSON.stringify(requestBody),
+			headers: {'Content-Type': "application/json"}
+	}).then(loginRequestCb).catch(loginErrorCb)
 }
 
 function encryptAndReturn(userIDSecret){
-	return CryptoJS.SHA256(userIDSecret);
+	return btoa(userIDSecret);
 }
 
 function loginRequestCb(response){
@@ -33,6 +43,12 @@ function addEventHandlers(){
 		login();
 	});
 }
+
 function disableBrowserBack(){
 	 window.history.forward();
+}
+
+function init(){
+	disableBrowserBack();
+	addEventHandlers();
 }

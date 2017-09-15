@@ -1,0 +1,5 @@
+Method: POST
+URL: http://localhost:8080/cmsportal/login
+Body: RAW
+Body-Content
+{"loginCreds": "MjAwMDpqb2huZG9l"}

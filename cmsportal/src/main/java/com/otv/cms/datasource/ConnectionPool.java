@@ -21,6 +21,7 @@ public final class ConnectionPool {
       config.setJdbcUrl("jdbc:mysql://localhost:3306/cmsdb");
       config.setUsername("root");
       config.setPassword("kony@1234");
+      config.setDriverClassName("com.mysql.jdbc.Driver");
       config.setMaximumPoolSize(10);
       config.setAutoCommit(false);
       config.addDataSourceProperty("prepStmtCacheSize", "250");

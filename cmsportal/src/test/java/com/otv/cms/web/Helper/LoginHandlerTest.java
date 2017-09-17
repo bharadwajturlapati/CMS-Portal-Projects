@@ -16,6 +16,7 @@ public class LoginHandlerTest {
     loginMap.put("user_id", "2000");
     loginMap.put("user_secret", "johndoe");
     SuccessResponseEntity successResponseEntity = LoginHandler.executeLogin(loginMap);
-    assertThat(successResponseEntity.getResponseContent()).isEqualTo("{'authStatus':'success'}");
+    assertThat(successResponseEntity.getResponseContent())
+        .isEqualTo("{\"hashedCode\":\"MjAwMA==\",\"authStatus\":\"success\"}");
   }
 }

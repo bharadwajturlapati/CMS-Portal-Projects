@@ -31,6 +31,12 @@ function loginRequestCb(response){
 	}
 	response.json().then(function(data) {  
 		console.log(data);  
+		var responseContent = JSON.parse(data.responseContent);
+		if(responseContent.authStatus == "success"){
+			localStorage.setItem("isLoggedIn",true);
+			localStorage.setItem("hashedCode",responseContent.hashedCode);
+			redirectLoggedInUser();
+		}
 	});  
 }
 
@@ -44,11 +50,13 @@ function addEventHandlers(){
 	});
 }
 
-function disableBrowserBack(){
-	 window.history.forward();
+function redirectLoggedInUser(){
+	window.location = "/cmsportal/home?who="+localStorage.getItem("hashedCode");
 }
 
 function init(){
-	disableBrowserBack();
 	addEventHandlers();
+	if(localStorage.getItem("isLoggedIn") == "true"){
+		redirectLoggedInUser();
+	}
 }

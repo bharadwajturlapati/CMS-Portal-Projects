@@ -1,5 +1,6 @@
 package com.otv.cms.web.Helper;
 
+import java.util.Base64;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.otv.cms.datasource.ExecuteDBQuery;
@@ -27,7 +28,8 @@ public final class LoginHandler {
     String sql = "select * from employee where emp_id='" + loginMap.get("user_id")
         + "' and emp_secret='" + loginMap.get("user_secret") + "'";
 
-    return ExecuteDBQuery.executeLogin(sql);
+    return ExecuteDBQuery.executeLogin(sql,
+        Base64.getEncoder().encodeToString(loginMap.get("user_id").getBytes()));
   }
 
   public static SuccessResponseEntity handleLogin(String hashedString) {

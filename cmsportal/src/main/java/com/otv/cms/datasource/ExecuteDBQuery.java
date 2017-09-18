@@ -3,6 +3,7 @@ package com.otv.cms.datasource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,7 +55,7 @@ public final class ExecuteDBQuery {
     }
   }
 
-  private static ResultSet getResultSetFromSql(String sql) {
+  private static ResultSet getResultSetFromSql(String sql) throws SQLException {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -66,6 +67,8 @@ public final class ExecuteDBQuery {
       resultSet = preparedStatement.executeQuery();
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      connection.close();
     }
 
     return resultSet;

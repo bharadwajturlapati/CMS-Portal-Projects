@@ -1,9 +1,9 @@
 package com.otv.cms.web.Helper;
 
-import java.util.Base64;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.otv.cms.datasource.ExecuteDBQuery;
+import com.otv.cms.utils.Base64EncodeDecodeUtils;
 import com.otv.cms.web.pojo.Response.SuccessResponseEntity;
 
 public final class LoginHandler {
@@ -29,7 +29,7 @@ public final class LoginHandler {
         + "' and emp_secret='" + loginMap.get("user_secret") + "'";
 
     return ExecuteDBQuery.executeLogin(sql,
-        Base64.getEncoder().encodeToString(loginMap.get("user_id").getBytes()));
+        Base64EncodeDecodeUtils.encodeString(loginMap.get("user_id")));
   }
 
   public static SuccessResponseEntity handleLogin(String hashedString) {

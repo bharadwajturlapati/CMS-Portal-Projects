@@ -3,7 +3,6 @@ package com.otv.cms.datasource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,12 +20,13 @@ public final class ExecuteDBQuery {
 
   /* Build this json string using google gson */
   public static SuccessResponseEntity executeLogin(String sql, String hashedCode) {
-    ResultSet resultSet = null;
+
     AuthSuccessResponseContentEntity authSuccessResponseContentEntity = null;
     AuthFailureResponseContentEntity authFailureResponseContentEntity = null;
 
-    try {
-      resultSet = getResultSetFromSql(sql);
+    try (Connection connection = ConnectionPool.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();) {
 
       if (resultSet.next()) {
         authSuccessResponseContentEntity = new AuthSuccessResponseContentEntity();
@@ -53,24 +53,5 @@ public final class ExecuteDBQuery {
           .withReponseContent(gson.toJson(authFailureResponseContentEntity))
           .build();
     }
-  }
-
-  private static ResultSet getResultSetFromSql(String sql) throws SQLException {
-
-    Connection connection = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-
-    try {
-      connection = ConnectionPool.getConnection();
-      preparedStatement = connection.prepareStatement(sql);
-      resultSet = preparedStatement.executeQuery();
-    } catch (Exception e) {
-      e.printStackTrace();
-    } finally {
-      connection.close();
-    }
-
-    return resultSet;
   }
 }

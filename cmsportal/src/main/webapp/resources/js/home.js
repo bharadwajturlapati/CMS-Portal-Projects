@@ -1,6 +1,6 @@
 function logout() {
 	localStorage.clear("hashedCode");
-	window.location = "/cmsportal/home";
+	window.location = "/cmsportal/";
 }
 
 function addEventHandlers() {
@@ -8,7 +8,14 @@ function addEventHandlers() {
 		logout();
 	});
 }
+
+function sendLoggedInfoToBackend(){
+	
+}
+
 function init() {
 	addEventHandlers();
 	// call various rest controllers to fetch the data and permission.
+	// log the activity.
+	
 }
